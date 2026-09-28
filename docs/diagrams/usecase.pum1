@@ -1,0 +1,8 @@
+@startuml
+left to right direction
+actor "Кадровик" as HR
+usecase "Вести учет" as UC1
+usecase "Смотреть списки" as UC2
+HR --> UC1
+HR --> UC2
+@enduml
