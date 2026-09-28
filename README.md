@@ -15,3 +15,6 @@ python src/main.py
 
 ## Автор
 Ева Сорокина
+## Диаграмма
+
+![Use Case](docs/diagrams/usecase.png)
