@@ -1,8 +1,21 @@
 @startuml
 left to right direction
+skinparam actorStyle awesome
+
 actor "Кадровик" as HR
-usecase "Вести учет" as UC1
-usecase "Смотреть списки" as UC2
+actor "Руководитель подразделения" as MGR
+
+usecase "Оформлять назначения" as UC1
+usecase "Вести учёт сотрудников" as UC2
+usecase "Выгружать в файл" as UC3
+usecase "Смотреть списки" as UC4
+usecase "Смотреть вакантные ставки" as UC5
+
 HR --> UC1
 HR --> UC2
+HR --> UC3
+HR --> UC4
+MGR --> UC3
+MGR --> UC4
+MGR --> UC5
 @enduml
