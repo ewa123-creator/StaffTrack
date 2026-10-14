@@ -26,12 +26,13 @@ python src/main.py
 
 | Сущность | Назначение | Ключи |
 |---|---|---|
-| `employees` | Сотрудники | **PK** employee_id |
+| `employees` | Сотрудники | **PK** employee_id, UNIQUE personnel_number |
 | `positions` | Должности | **PK** position_id |
 | `assignments` | Назначения | **PK** assignment_id, **FK** → employees, positions |
+| `managers` | Руководители подразделений | **PK** manager_id, **FK** → employees |
 
 ### Связи
-
+- `managers` **1 : 1** `employees` — руководитель это сотрудник
 - `employees` **1 : N** `assignments`
 - `positions` **1 : N** `assignments`
 - `employees` **M : N** `positions` (через `assignments`)
