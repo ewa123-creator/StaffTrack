@@ -15,6 +15,7 @@ CREATE TABLE employees (
     middle_name      TEXT,
     birth_date       TEXT,
     phone            TEXT,
+    password_hash    TEXT    NOT NULL,
     dismissal_date   TEXT
 );
 
@@ -43,10 +44,10 @@ CREATE TABLE managers (
 );
 
 -- Тестовые данные
-INSERT INTO employees (personnel_number, last_name, first_name, middle_name, birth_date, phone) VALUES
-('001', 'Сорокина', 'Ева',   'Андреевна',  '1990-05-12', '+7-900-111-22-33'),
-('002', 'Иванов',   'Иван',  'Петрович',   '1985-03-20', '+7-900-222-33-44'),
-('003', 'Петрова',  'Анна',  'Сергеевна',  '1992-11-08', '+7-900-333-44-55');
+INSERT INTO employees (personnel_number, last_name, first_name, middle_name, birth_date, phone, password_hash) VALUES
+('001', 'Сорокина', 'Ева',   'Андреевна',  '1990-05-12', '+7-900-111-22-33', 'hash_001'),
+('002', 'Иванов',   'Иван',  'Петрович',   '1985-03-20', '+7-900-222-33-44', 'hash_002'),
+('003', 'Петрова',  'Анна',  'Сергеевна',  '1992-11-08', '+7-900-333-44-55', 'hash_003');
 
 INSERT INTO positions (title, salary, staff_units) VALUES
 ('Кадровик',   70000.0, 1),
