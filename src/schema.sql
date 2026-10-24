@@ -1,7 +1,3 @@
--- ============================================
--- StaffTrack — схема базы данных
--- ============================================
-
 DROP TABLE IF EXISTS assignments;
 DROP TABLE IF EXISTS managers;
 DROP TABLE IF EXISTS positions;
@@ -15,6 +11,7 @@ CREATE TABLE employees (
     middle_name      TEXT,
     birth_date       TEXT,
     phone            TEXT,
+    login            TEXT    NOT NULL UNIQUE,
     password_hash    TEXT    NOT NULL,
     dismissal_date   TEXT
 );
@@ -43,11 +40,10 @@ CREATE TABLE managers (
     FOREIGN KEY (employee_id) REFERENCES employees (employee_id)
 );
 
--- Тестовые данные
-INSERT INTO employees (personnel_number, last_name, first_name, middle_name, birth_date, phone, password_hash) VALUES
-('001', 'Сорокина', 'Ева',   'Андреевна',  '1990-05-12', '+7-900-111-22-33', 'hash_001'),
-('002', 'Иванов',   'Иван',  'Петрович',   '1985-03-20', '+7-900-222-33-44', 'hash_002'),
-('003', 'Петрова',  'Анна',  'Сергеевна',  '1992-11-08', '+7-900-333-44-55', 'hash_003');
+INSERT INTO employees (personnel_number, last_name, first_name, middle_name, birth_date, phone, login, password_hash) VALUES
+('001', 'Сорокина', 'Ева',   'Андреевна',  '1990-05-12', '+7-900-111-22-33', 'hr',      'hr123'),
+('002', 'Иванов',   'Иван',  'Петрович',   '1985-03-20', '+7-900-222-33-44', 'manager', 'mgr123'),
+('003', 'Петрова',  'Анна',  'Сергеевна',  '1992-11-08', '+7-900-333-44-55', 'petrova', '123');
 
 INSERT INTO positions (title, salary, staff_units) VALUES
 ('Кадровик',   70000.0, 1),
@@ -60,4 +56,4 @@ INSERT INTO assignments (employee_id, position_id, start_date) VALUES
 (3, 3, '2026-03-01');
 
 INSERT INTO managers (employee_id, appointed_date) VALUES
-(1, '2026-09-28');
+(2, '2025-01-15');
