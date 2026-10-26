@@ -1,6 +1,6 @@
 """Репозиторий для работы с таблицей positions."""
 
-from src.database import get_connection
+from src.database.database import get_connection
 from src.models.position import Position
 
 
