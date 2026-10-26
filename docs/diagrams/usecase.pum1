@@ -5,17 +5,17 @@ skinparam actorStyle awesome
 actor "Кадровик" as HR
 actor "Руководитель подразделения" as MGR
 
-usecase "Оформлять назначения" as UC1
-usecase "Вести учёт сотрудников" as UC2
-usecase "Выгружать в файл" as UC3
-usecase "Смотреть списки" as UC4
-usecase "Смотреть вакантные ставки" as UC5
+usecase "Оформлять назначения" as Assign
+usecase "Вести учёт сотрудников" as Track
+usecase "Выгружать в файл" as Export
+usecase "Смотреть списки" as ViewLists
+usecase "Смотреть вакантные ставки" as ViewVacancies
 
-HR --> UC1
-HR --> UC2
-HR --> UC3
-HR --> UC4
-MGR --> UC3
-MGR --> UC4
-MGR --> UC5
+HR -- Assign
+HR -- Track
+HR -- Export
+HR -- ViewLists
+MGR -- Export
+MGR -- ViewLists
+MGR -- ViewVacancies
 @enduml
