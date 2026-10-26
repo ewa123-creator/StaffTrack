@@ -1,6 +1,6 @@
 """Репозиторий для работы с таблицей managers."""
 
-from src.database import get_connection
+from src.database.database import get_connection
 from src.models.manager import Manager
 
 
