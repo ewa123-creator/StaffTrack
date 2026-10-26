@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 sys.path.insert(0, PROJECT_DIR)
 
-from src.database import DB_PATH, init_db
+from src.database.database import DB_PATH, init_db
 from src.ui import auth, menus
 from src.services import auth_service
 
