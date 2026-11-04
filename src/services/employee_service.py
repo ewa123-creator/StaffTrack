@@ -1,5 +1,6 @@
 """Бизнес-логика для сотрудников."""
 
+import hashlib
 from src.repositories import employee_repo
 from src.models.employee import Employee
 
@@ -19,9 +20,12 @@ def create_employee(personnel_number: str, last_name: str, first_name: str,
         if emp.personnel_number == personnel_number:
             raise Exception("Сотрудник с таким табельным номером уже есть")
 
+    # Хэшируем пароль перед сохранением в БД
+    password_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
+
     return employee_repo.create(
         personnel_number, last_name, first_name,
-        middle_name, birth_date, phone, login, password
+        middle_name, birth_date, phone, login, password_hash
     )
 
 
