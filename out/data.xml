@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<assignments>
+  <assignment>
+    <id>1</id>
+    <employee>
+      <name>Сорокина Ева</name>
+    </employee>
+    <position>Кадровик</position>
+    <start_date>2026-09-28</start_date>
+    <end_date>по наст. время</end_date>
+  </assignment>
+  <assignment>
+    <id>2</id>
+    <employee>
+      <name>Иванов Иван</name>
+    </employee>
+    <position>Менеджер</position>
+    <start_date>2025-01-15</start_date>
+    <end_date>по наст. время</end_date>
+  </assignment>
+  <assignment>
+    <id>3</id>
+    <employee>
+      <name>Петрова Анна</name>
+    </employee>
+    <position>Бухгалтер</position>
+    <start_date>2026-03-01</start_date>
+    <end_date>по наст. время</end_date>
+  </assignment>
+</assignments>
