@@ -84,7 +84,11 @@ def _create_assignment():
     try:
         emp_id = int(input("ID сотрудника: "))
         pos_id = int(input("ID должности: "))
-        start = input("Дата начала (YYYY-MM-DD): ")
+        start = input("Дата начала (например, 04.11.2026): ")
+        # Переводим формат ДД.ММ.ГГГГ в ГГГГ-ММ-ДД для базы
+        if "." in start:
+            d, m, y = start.split(".")
+            start = f"{y}-{m}-{d}"
         assignment_service.create_assignment(emp_id, pos_id, start)
         print(" Назначение оформлено")
     except Exception as e:
@@ -94,7 +98,11 @@ def _create_assignment():
 def _dismiss_employee():
     try:
         emp_id = int(input("ID сотрудника: "))
-        date = input("Дата увольнения (YYYY-MM-DD): ")
+        date = input("Дата увольнения (например, 04.11.2026): ")
+        # Переводим формат ДД.ММ.ГГГГ в ГГГГ-ММ-ДД для базы
+        if "." in date:
+            d, m, y = date.split(".")
+            date = f"{y}-{m}-{d}"
         assignment_service.dismiss_employee(emp_id, date)
         print(" Сотрудник уволен")
     except Exception as e:
