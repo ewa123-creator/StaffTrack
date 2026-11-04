@@ -58,14 +58,26 @@ def _print_positions():
     print("\nДолжности:")
     for p in position_service.get_all():
         free = position_service.get_free_count(p.position_id)
-        print(f"  [{p.position_id}] {p.title} — оклад {p.salary} — свободно {free} из {p.staff_units}")
+        # Форматируем оклад, чтобы было красиво (2 знака после запятой)
+        salary_str = f"{p.salary:.2f}"
+        print(f"  [{p.position_id}] {p.title} — оклад {salary_str} — свободно {free} из {p.staff_units}")
 
 
 def _print_assignments():
     print("\nНазначения:")
     for a in assignment_service.get_all():
-        end = a.end_date or "по наст. время"
-        print(f"  [{a.assignment_id}] {a.employee_full_name} — {a.position_title} ({a.start_date} — {end})")
+        # Форматируем дату из YYYY-MM-DD в DD.MM.YYYY
+        start_date = a.start_date
+        if start_date and "-" in start_date:
+            y, m, d = start_date.split("-")
+            start_date = f"{d}.{m}.{y}"
+            
+        end_date = a.end_date or "по наст. время"
+        if end_date != "по наст. время" and "-" in end_date:
+            y, m, d = end_date.split("-")
+            end_date = f"{d}.{m}.{y}"
+            
+        print(f"  [{a.assignment_id}] {a.employee_full_name} — {a.position_title} ({start_date} — {end_date})")
 
 
 def _create_assignment():
@@ -74,9 +86,9 @@ def _create_assignment():
         pos_id = int(input("ID должности: "))
         start = input("Дата начала (YYYY-MM-DD): ")
         assignment_service.create_assignment(emp_id, pos_id, start)
-        print("✅ Назначение оформлено")
+        print(" Назначение оформлено")
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f" Ошибка: {e}")
 
 
 def _dismiss_employee():
@@ -84,6 +96,6 @@ def _dismiss_employee():
         emp_id = int(input("ID сотрудника: "))
         date = input("Дата увольнения (YYYY-MM-DD): ")
         assignment_service.dismiss_employee(emp_id, date)
-        print("✅ Сотрудник уволен")
+        print(" Сотрудник уволен")
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f" Ошибка: {e}")
