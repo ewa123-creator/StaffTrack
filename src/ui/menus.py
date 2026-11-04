@@ -1,6 +1,7 @@
 """Консольные меню StaffTrack."""
 
 from src.services import employee_service, position_service, assignment_service, auth_service
+from src.services import export_service  # <--- Импорт для 5-й лабы
 
 
 def hr_menu(user):
@@ -11,6 +12,7 @@ def hr_menu(user):
         print("3. Все назначения")
         print("4. Назначить сотрудника на должность")
         print("5. Уволить сотрудника")
+        print("6. Экспорт данных (JSON, CSV, XML, YAML)")  # <--- НОВЫЙ ПУНКТ
         print("0. Выход")
         choice = input("Выберите действие: ")
 
@@ -24,6 +26,8 @@ def hr_menu(user):
             _create_assignment()
         elif choice == "5":
             _dismiss_employee()
+        elif choice == "6":
+            export_service.export_data()  # <--- ВЫЗОВ ЭКСПОРТА
         elif choice == "0":
             break
 
@@ -58,8 +62,7 @@ def _print_positions():
     print("\nДолжности:")
     for p in position_service.get_all():
         free = position_service.get_free_count(p.position_id)
-        # Форматируем оклад, чтобы было красиво (2 знака после запятой)
-        salary_str = f"{p.salary:.2f}"
+        salary_str = f"{p.salary:.2f}"  # Форматируем оклад (2 знака после запятой)
         print(f"  [{p.position_id}] {p.title} — оклад {salary_str} — свободно {free} из {p.staff_units}")
 
 
