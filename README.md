@@ -11,7 +11,7 @@
 | Кадровик | Учёт |
 
 ## Запуск
-python src/main.py
+python -m src.stafftrack.main
 
 ## Автор
 Ева Сорокина
