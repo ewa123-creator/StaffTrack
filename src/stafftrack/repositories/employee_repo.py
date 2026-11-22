@@ -2,6 +2,7 @@
 
 from src.stafftrack.database.database import get_connection
 from src.stafftrack.models.employee import Employee
+from src.stafftrack.repositories import queries
 
 
 def _map(row) -> Employee:
@@ -13,11 +14,7 @@ def create(personnel_number: str, last_name: str, first_name: str,
            phone: str | None = None, login: str = "", password_hash: str = "") -> int:
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("""
-        INSERT INTO employees(personnel_number, last_name, first_name,
-                              middle_name, birth_date, phone, login, password_hash)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (personnel_number, last_name, first_name, middle_name,
+    cur.execute(queries.INSERT_EMPLOYEE, (personnel_number, last_name, first_name, middle_name,
           birth_date, phone, login, password_hash))
     conn.commit()
     new_id = cur.lastrowid
@@ -28,7 +25,7 @@ def create(personnel_number: str, last_name: str, first_name: str,
 def get_by_id(employee_id: int) -> Employee | None:
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM employees WHERE employee_id = ?", (employee_id,))
+    cur.execute(queries.SELECT_EMPLOYEE_BY_ID, (employee_id,))
     row = cur.fetchone()
     conn.close()
     return _map(row) if row else None
@@ -37,7 +34,7 @@ def get_by_id(employee_id: int) -> Employee | None:
 def get_by_login(login: str) -> Employee | None:
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM employees WHERE login = ?", (login,))
+    cur.execute(queries.SELECT_EMPLOYEE_BY_LOGIN, (login,))
     row = cur.fetchone()
     conn.close()
     return _map(row) if row else None
@@ -46,7 +43,7 @@ def get_by_login(login: str) -> Employee | None:
 def get_all() -> list[Employee]:
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM employees ORDER BY employee_id")
+    cur.execute(queries.SELECT_ALL_EMPLOYEES)
     rows = cur.fetchall()
     conn.close()
     return [_map(r) for r in rows]
@@ -67,6 +64,6 @@ def update(employee_id: int, **fields) -> None:
 def delete(employee_id: int) -> None:
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("DELETE FROM employees WHERE employee_id = ?", (employee_id,))
+    cur.execute(queries.DELETE_EMPLOYEE, (employee_id,))
     conn.commit()
     conn.close()
