@@ -5,16 +5,27 @@ skinparam actorStyle awesome
 actor "Кадровик" as HR
 actor "Руководитель подразделения" as MGR
 
+usecase "Авторизоваться" as Login
+usecase "Регистрировать пользователя" as Register
 usecase "Оформлять назначения" as Assign
 usecase "Вести учёт сотрудников" as Track
 usecase "Выгружать в файл" as Export
 usecase "Смотреть списки" as ViewLists
 usecase "Смотреть вакантные ставки" as ViewVacancies
 
+' Оба актера должны авторизоваться
+HR -- Login
+MGR -- Login
+
+' Регистрацией занимается только Кадровик
+HR -- Register
+
+' Остальные функции
 HR -- Assign
 HR -- Track
 HR -- Export
 HR -- ViewLists
+
 MGR -- Export
 MGR -- ViewLists
 MGR -- ViewVacancies
