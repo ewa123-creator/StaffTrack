@@ -3,7 +3,6 @@
 from src.stafftrack.services import employee_service, position_service, assignment_service, auth_service
 from src.stafftrack.services import export_service
 
-
 def hr_menu(user):
     while True:
         print(f"\n===== Кадровик: {user.first_name} {user.last_name} =====")
@@ -27,10 +26,9 @@ def hr_menu(user):
         elif choice == "5":
             _dismiss_employee()
         elif choice == "6":
-            export_service.export_data()
+            _export_menu()
         elif choice == "0":
             break
-
 
 def manager_menu(user):
     while True:
@@ -50,6 +48,25 @@ def manager_menu(user):
         elif choice == "0":
             break
 
+def _export_menu():
+    print("\nКакую таблицу выгрузить?")
+    print("1. Сотрудники (employees)")
+    print("2. Должности (positions)")
+    print("3. Назначения (assignments)")
+    print("4. Руководители (managers)")
+    table_choice = input("Выберите таблицу (1-4): ")
+    
+    tables = {
+        "1": "employees",
+        "2": "positions",
+        "3": "assignments",
+        "4": "managers"
+    }
+    
+    if table_choice in tables:
+        export_service.export_table(tables[table_choice])
+    else:
+        print("Неверный выбор.")
 
 def _print_employees():
     print("\nСотрудники:")
@@ -57,14 +74,12 @@ def _print_employees():
         status = "уволен" if e.dismissal_date else "работает"
         print(f"  [{e.employee_id}] {e.last_name} {e.first_name} — {status}")
 
-
 def _print_positions():
     print("\nДолжности:")
     for p in position_service.get_all():
         free = position_service.get_free_count(p.position_id)
         salary_str = f"{p.salary:.2f}"
         print(f"  [{p.position_id}] {p.title} — оклад {salary_str} — свободно {free} из {p.staff_units}")
-
 
 def _print_assignments():
     print("\nНазначения:")
@@ -81,7 +96,6 @@ def _print_assignments():
             
         print(f"  [{a.assignment_id}] {a.employee_full_name} — {a.position_title} ({start_date} — {end_date})")
 
-
 def _create_assignment():
     try:
         emp_id = int(input("ID сотрудника: "))
@@ -94,7 +108,6 @@ def _create_assignment():
         print("Назначение оформлено")
     except Exception as e:
         print(f"Ошибка: {e}")
-
 
 def _dismiss_employee():
     try:
